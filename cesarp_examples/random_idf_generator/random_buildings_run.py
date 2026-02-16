@@ -56,7 +56,8 @@ def process_fid(fids):
     :param fids:
     """
     sub_results = result_series_frame[result_series_frame['fid'] == fids]
-    sub_results = pd.DataFrame(sub_results.iloc[:, 2].values.reshape(-1, 8760), columns=np.arange(1, 8761)).transpose()
+    sub_results = pd.DataFrame(sub_results.iloc[:, 2].values.reshape(-1, 17520), columns=np.arange(1,
+                                                                                                   17521)).transpose()
     sub_results.iloc[:, :2] = sub_results.iloc[:, :2] / 3600000
     sub_results.to_csv(__abs_path(save_dir) / Path(f"fid_{fids}.csv"), header=False, index=False)
 
@@ -104,7 +105,7 @@ if __name__ == "__main__":
     create_directory_if_not_exists(save_dir)
     result_series_frame = sim_manager.save_custom_results(result_keys=[RES_KEY_HEATING_DEMAND, RES_KEY_EL_DEMAND,
                                                                        RES_KEY_INDOOR_TEMPERATURE],
-                                                          results_frequency=ResultsFrequency.HOURLY,
+                                                          results_frequency=ResultsFrequency.TIMESTEP,
                                                           save_folder_path=__abs_path(save_dir))
     print("\n=========EXTRACTING RESULTS FINISHED ===========")
     # you can post-process the results as you like, e.g. save to a file

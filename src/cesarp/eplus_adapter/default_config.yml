@@ -42,7 +42,7 @@ EPLUS_ADAPTER:
     SIMULATION_SETTINGS:
         MIN_SYSTEM_TIMESTAMP: 2
         MAX_HVAC_ITERATIONS: 25
-        NR_OF_TIMESTEPS: 4
+        NR_OF_TIMESTEPS: 2
         SHADOW_CALCULATION_FREQUENCY: 7
     # definitions of output variables which shall be included in the E+ outputs, respectively which will be added to your IDF files
     # you can add several entries for different result frequencies, see cesar.eplus_adapter.idf_strings.ResultsFrequency for possibilites    
@@ -51,15 +51,21 @@ EPLUS_ADAPTER:
     # if you overwrite in your own config, you have to specify all parameters you want. the lists are not merged
     OUTPUT_VARS:
       ANNUAL:
-      MONTHLY:
-      HOURLY:
         - "Zone Air Temperature"
         - "Zone Ideal Loads Supply Air Total Heating Energy"
         - "Zone Ideal Loads Supply Air Total Cooling Energy"
         - "Hot Water Equipment District Heating Energy"
         - "Zone Ideal Loads Supply Air Sensible Heating Rate"
         - "Hot Water Equipment District Heating Rate"
+      MONTHLY:
+      HOURLY:
       TIMESTEP:
+        - "Zone Air Temperature"
+        - "Zone Ideal Loads Supply Air Total Heating Energy"
+        - "Zone Ideal Loads Supply Air Total Cooling Energy"
+        - "Hot Water Equipment District Heating Energy"
+        - "Zone Ideal Loads Supply Air Sensible Heating Rate"
+        - "Hot Water Equipment District Heating Rate"
       DETAILED:
     # same applies as for OUTPUT_VARS
     OUTPUT_METER:
@@ -69,12 +75,12 @@ EPLUS_ADAPTER:
         - "DistrictCooling:Facility" # Cooling
         - "Electricity:Facility"  # Electricity
       MONTHLY:
-      HOURLY: 
-        - "DistrictHeating:Building"  # DHW 
+      HOURLY:
+      TIMESTEP:
+        - "DistrictHeating:Building"  # DHW
         - "DistrictHeating:HVAC"  # Heating
         - "DistrictCooling:Facility" # Cooling
         - "Electricity:Facility"  # Electricity
-      TIMESTEP:
       DETAILED:
     # parameters used to read floor area from EIO file
     # if E+ does not change anything in the EIO output format, you do not need to change those

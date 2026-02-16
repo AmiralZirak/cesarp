@@ -217,14 +217,15 @@ class CesarIDFWriter:
         table_style = idf.newidfobject(idf_strings.IDFObjects.output_control_table_style)
         table_style.Column_Separator = idf_strings.ColumnSeparator.comma_and_html
         table_style.Unit_Conversion = idf_strings.UnitConversion.j_to_kwh
-
         for frequency, meters in self._cfg["OUTPUT_METER"].items():
             if meters:  # there might be no entries for a certain frequency
                 freq_idf_str = idf_strings.ResultsFrequency[frequency].value
+                # freq_idf_str = idf_strings.ResultsFrequency.TIMESTEP.value  # force 15-min outputs
                 [CesarIDFWriter._add_output_meter(idf, meter_var, freq_idf_str) for meter_var in meters]
         for frequency, output_vars in self._cfg["OUTPUT_VARS"].items():
             if output_vars:  # there might be no entries for a certain frequency
                 freq_idf_str = idf_strings.ResultsFrequency[frequency].value
+                # freq_idf_str = idf_strings.ResultsFrequency.TIMESTEP.value  # force 15-min outputs
                 [CesarIDFWriter._add_output_variable(idf, output_var, freq_idf_str) for output_var in output_vars]
 
         return idf

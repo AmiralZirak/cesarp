@@ -165,7 +165,8 @@ ResultsFrequency, save_folder_path) -> pd.DataFrame:
                 logging.getLogger(__name__).warning(
                     f"Variable {result_key} could not be extracted from {eso_path}. Skipping this variable. Caused by: {msg}")
                 continue
-        aggregated_res = pd.DataFrame(aggregated_res.iloc[:, 2].values.reshape(-1, 8760), columns=np.arange(1, 8761)).transpose()
+        aggregated_res = pd.DataFrame(aggregated_res.iloc[:, 2].values.reshape(-1, 17520), columns=np.arange(1,
+                                                                                                            17521)).transpose()
         aggregated_res.iloc[:, :2] = aggregated_res.iloc[:, :2] / 3600000
         aggregated_res.to_csv(save_folder_path / Path(f"fid_{fid}.csv"), header=False, index=False)
 
